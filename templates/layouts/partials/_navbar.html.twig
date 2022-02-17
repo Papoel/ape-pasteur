@@ -1,0 +1,70 @@
+{% if app.user %}
+    <nav class="flex items-center justify-between flex-wrap bg-purple-800 p-8 fixed w-full top-0 z-10">
+        <div class="flex items-center flex-shrink-0 text-white mr-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 261.021 298.536"><g transform="translate(-250.723 -105.984)"><text transform="translate(255 285)" fill="#63ffda" font-size="100" font-family="SegoeUI-Semibold, Segoe UI" font-weight="300"><tspan x="0" y="0">APER</tspan></text><path d="M435.651,850.174l126.064-68.158V637.388L437.036,563.135,310.695,632.124V776.474Z" transform="translate(-67 -450)" fill="none"
+                                                                                                                                                                                                                                                                                                                                stroke="#63ffda" stroke-width="10"/></g></svg>
+            <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
+                <span class="text-2xl pl-2">
+                    <i class="em em-grinning"></i>
+                    APE - Rousies Pasteur
+                </span>
+            </a>
+        </div>
+
+        <div class="block lg:hidden">
+            <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-white hover:border-white">
+                <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+            </button>
+        </div>
+
+        {# <DarkMode> #}
+        <style>
+            #checkbox:checked + label .switch-ball{
+                background-color: rgb(91, 69, 215);
+                transform: translateX(24px);
+                transition: transform 0.4s linear;
+            }
+        </style>
+
+        <div class="inline-flex transition duration-500">
+            <span class="text-gray-400 mr-2">Light</span>
+            <input type="checkbox" name="" id="checkbox" class="hidden" />
+            <label for="checkbox" class="cursor-pointer" class="">
+                <div class="w-9 h-5 flex items-center bg-gray-300 rounded-full p2">
+                    <div class="switch-ball w-4 h-4 bg-purple-400 rounded-full shadow"></div>
+                </div>
+            </label>
+            <span class="text-gray-400 ml-2">Dark</span>
+        </div>
+        {# </DarkMode> #}
+
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
+            <ul class="list-reset lg:flex justify-end flex-1 items-center">
+                <li class="mr-3">
+                    <a class="inline-block py-2 px-4 text-white no-underline" href="{{ path('app_home') }}">Accueil</a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py- px-4" href="{{ path('article_index') }}">Blog</a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Evenements</a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Contact</a>
+                </li>
+                {% if is_granted('ROLE_USER') %}
+                    <li class="mr-3">
+                        <a class="inline-block text-gray-400 no-underline hover:text-red-400 hover:text-underline py-2 px-4" href="{{ path('app_logout') }}">Deconnexion</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!--Container-->
+    <div class="dark:bg-gray-900 text-gray-600 ">
+        <div class="container shadow-lg mx-auto mt-24 md:mt-18"></div>
+    </div>
+
+{% endif %}
+

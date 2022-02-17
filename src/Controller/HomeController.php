@@ -11,14 +11,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    #[IsGranted('ROLE_USER')]
     #[Route('/', name: 'index')]
     public function index(): Response
     {
         return $this->redirectToRoute('app_home');
     }
 
-    #[IsGranted('ROLE_USER')]
     #[Route('/home', name: 'app_home')]
     public function home(EntityManagerInterface $em): Response
     {
