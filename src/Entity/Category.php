@@ -6,7 +6,6 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JetBrains\PhpStorm\Pure;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -25,7 +24,7 @@ class Category
     #[ORM\ManyToMany(targetEntity: Article::class, mappedBy: 'category')]
     private Collection $articles;
 
-    #[Pure] public function __construct()
+    public function __construct()
     {
         $this->articles = new ArrayCollection();
     }
@@ -59,9 +58,6 @@ class Category
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getArticles(): Collection
     {
         return $this->articles;

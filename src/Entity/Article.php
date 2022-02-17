@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use JetBrains\PhpStorm\Pure;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
@@ -54,7 +53,7 @@ class Article
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'articles')]
     private Collection $category;
 
-    #[Pure] public function __construct()
+    public function __construct()
     {
         $this->category = new ArrayCollection();
     }
@@ -184,9 +183,6 @@ class Article
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getCategory(): Collection
     {
         return $this->category;

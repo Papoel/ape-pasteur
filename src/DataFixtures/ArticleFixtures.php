@@ -3,10 +3,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Faker;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Faker;
 
 class ArticleFixtures extends Fixture implements DependentFixtureInterface
 {
