@@ -2,8 +2,55 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-$body: #f1f1f1;
+@layer components {
+  .btn {
+    @apply cursor-pointer;
+    @apply py-2;
+    @apply px-4;
+    @apply h-10;
+    @apply border;
+    @apply border-transparent;
+    @apply rounded;
+    @apply transition;
+    @apply duration-300;
+    @apply ease-in-out;
+    @apply inline-flex;
+    @apply items-center;
+  }
 
-body {
-  background-color: $body;
+  .btn-primary {
+    @apply cursor-pointer;
+    @apply py-2;
+    @apply px-4;
+    @apply h-10;
+    @apply border;
+    @apply border-transparent;
+    @apply rounded;
+    @apply transition;
+    @apply duration-300;
+    @apply ease-in-out;
+    @apply inline-flex;
+    @apply items-center;
+    @apply bg-purple-600 ;
+    @apply text-white;
+    @apply font-normal;
+    @apply hover:bg-purple-700;
+    @apply focus:outline-none;
+    @apply focus:ring-2;
+    @apply focus:ring-offset-2;
+    @apply focus:ring-purple-500;
+  }
+
+  .-delete {
+    @apply text-red-100;
+    @apply transition-colors;
+    @apply duration-500;
+    @apply bg-red-700;
+    @apply rounded;
+    @apply hover:bg-red-800;
+  }
+
+  .title_h1 {
+    @apply text-center text-6xl font-normal leading-normal mt-0 mb-2 text-purple-800 dark:text-gray-500
+  }
 }

@@ -20,5 +20,10 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "@tailwindcss/forms": "^0.4.0",
+        "glob-all": "^3.2.1",
+        "purgecss-webpack-plugin": "^4.1.3"
     }
 }
