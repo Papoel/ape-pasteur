@@ -35,7 +35,7 @@ class UserFixtures extends Fixture
         $users[] = $user;
 
         // ? Création de 20 comptes utilisateurs
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             $users = [];
             $user = new User();
             $user->setEmail('user' .$i. '@email.fr');
@@ -50,6 +50,7 @@ class UserFixtures extends Fixture
             $user->setPseudo($faker->Name() ."-". $faker->randomNumber(2, false));
 
             $manager->persist($user);
+            $this->addReference(sprintf('author%d', $i), $user);
             $users[] = $user;
         }
 
