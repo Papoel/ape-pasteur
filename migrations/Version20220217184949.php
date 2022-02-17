@@ -14,7 +14,9 @@ final class Version20220217184949 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return '
+            Création des tables User - Article - Category - article_category
+        ';
     }
 
     public function up(Schema $schema): void
@@ -23,6 +25,7 @@ final class Version20220217184949 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE article_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE category_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE "user_id_seq" INCREMENT BY 1 MINVALUE 1 START 1');
+
         $this->addSql('CREATE TABLE article (id INT NOT NULL, author_id INT NOT NULL, title VARCHAR(50) NOT NULL, content TEXT NOT NULL, slug VARCHAR(255) NOT NULL, file VARCHAR(255) DEFAULT \'placeholder.jpg\' NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, is_published BOOLEAN NOT NULL, votes INT DEFAULT NULL, description TEXT DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_23A0E66F675F31B ON article (author_id)');
         $this->addSql('COMMENT ON COLUMN article.created_at IS \'(DC2Type:datetime_immutable)\'');
