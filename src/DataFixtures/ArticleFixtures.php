@@ -16,7 +16,7 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 1; $i <= 20; ++$i) {
             $article = new Article();
-            $article->setTitle($faker->sentence($faker->numberBetween(2, 4)));
+            $article->setTitle($faker->sentence($faker->numberBetween(1, 3)));
             $article->setContent($faker->paragraphs(12, true));
             $article->setIsPublished($faker->boolean());
             $article->setVotes($faker->numberBetween(-100, 1000));
