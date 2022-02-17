@@ -1,19 +1,55 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<html lang="fr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} APER {% endblock %}</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {# <script src="https://cdn.tailwindcss.com"></script>#}
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet">
+    <style>
+        .smooth {transition: box-shadow 0.3s ease-in-out;}
+        ::selection{background-color: aliceblue}
+    </style>
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+
+</head>
+
+<body>
+<main>
+    {% block body %}{% endblock %}
+</main>
+</body>
+
+{# Javascript pour le Hamburger et le DarkMode #}
+<script>
+    /* Javascript pour le bouton Toggle du Menu*/
+    document.getElementById('nav-toggle').onclick = function(){
+        document.getElementById("nav-content").classList.toggle("hidden");
+    }
+
+    /* Javascript pour le DarkMode */
+    /* Todo: Garder le darkMode d'une page à l'autre ? => LocalStorage ? */
+    const checkbox = document.querySelector("#checkbox");
+    const html = document.querySelector("html");
+
+    const toggleDarkMode = function () {
+        checkbox.checked
+            ? html.classList.add("dark")
+            : html.classList.remove("dark");
+    }
+
+    toggleDarkMode();
+    checkbox.addEventListener("click",toggleDarkMode);
+</script>
 </html>

@@ -26,7 +26,7 @@ class Article
     #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug;
 
-    #[ORM\Column(type: 'string', length: 255, options: ['default' => 'placeholder.jpg'])]
+    #[ORM\Column(type: 'string', length: 255, options: ['default' => 'placeholder.webp'])]
     private ?string $file;
 
     #[ORM\Column(type: 'datetime_immutable')]

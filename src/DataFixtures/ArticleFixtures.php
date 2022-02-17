@@ -21,7 +21,7 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
             $article->setIsPublished($faker->boolean());
             $article->setVotes($faker->numberBetween(-100, 1000));
             $article->setDescription($faker->paragraphs(3, true));
-            $article->setFile('placeholder.jpg');
+            $article->setFile('placeholder.webp');
 
             $article->addCategory(
                 $this->getReference(sprintf('category%s', $faker->numberBetween(1, 5)))

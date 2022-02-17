@@ -1,4 +1,4 @@
-{% if app.user %}
+{#{% if app.user %}#}
     <nav class="flex items-center justify-between flex-wrap bg-purple-800 p-8 fixed w-full top-0 z-10">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 261.021 298.536"><g transform="translate(-250.723 -105.984)"><text transform="translate(255 285)" fill="#63ffda" font-size="100" font-family="SegoeUI-Semibold, Segoe UI" font-weight="300"><tspan x="0" y="0">APER</tspan></text><path d="M435.651,850.174l126.064-68.158V637.388L437.036,563.135,310.695,632.124V776.474Z" transform="translate(-67 -450)" fill="none"
@@ -43,9 +43,9 @@
                 <li class="mr-3">
                     <a class="inline-block py-2 px-4 text-white no-underline" href="{{ path('app_home') }}">Accueil</a>
                 </li>
-                <li class="mr-3">
+                {#<li class="mr-3">
                     <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py- px-4" href="{{ path('article_index') }}">Blog</a>
-                </li>
+                </li>#}
                 <li class="mr-3">
                     <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Evenements</a>
                 </li>
@@ -66,5 +66,5 @@
         <div class="container shadow-lg mx-auto mt-24 md:mt-18"></div>
     </div>
 
-{% endif %}
+{#{% endif %}#}
 
