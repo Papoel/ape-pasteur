@@ -1,0 +1,22 @@
+{{ form_start(articleForm) }}
+    <div class="flex mb-4">
+        <div class="w-full">{{ form_row(articleForm.title) }}</div>
+    </div>
+
+    <div class="flex mb-4">
+        <div class="w-full">{{ form_row(articleForm.description) }}</div>
+    </div>
+
+    <div class="flex mb-4">
+        <div class="w-full">{{ form_row(articleForm.content) }}</div>
+    </div>
+
+    <div class="flex mb-4">
+        <div class="w-full ">{{ form_row(articleForm.category) }}</div>
+    </div>
+
+    <button type="submit" class="btn-primary w-full block mx-auto font-semibold" formvalidate>
+        {{ submitButtonText ?? 'Enregistrer' }}
+    </button>
+
+{{ form_end(articleForm) }}

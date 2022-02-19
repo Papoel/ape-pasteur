@@ -13,17 +13,14 @@
             <div class="text-white">
                 <span class="text-blue-800">Blog -</span> Les articles validés se trouvent ci-dessous
             </div>
-            {#
-            <div class="hidden md:flex justify-end mr-48">
-                <div class="p-6 bg-purple-400 rounded-full h-4 w-4 flex items-center justify-center text-2xl text-white mt-4 shadow-lg cursor-pointer hover-bg-black">
-                    <a class="hover-bg-black" href="{{ path('article_new') }}" class="">+</a>
-                </div>
-            </div>
-            #}
+
             <div class="flex justify-center gap-2 my-5">
-                <a href="#{#{{ path('article_new') }}#}" class="bg-pink-500 px-10 py-2 rounded-full text-white shadow-lg hover:bg-pink-700 transition-all duration-500 shadow">Poster une article</a>
-                {# <button class="bg-white border border-gray-500 px-10 py-2 rounded-full shadow-lg">Message</button>#}
+                <a href="{{ path('article_new') }}"
+                   class="bg-pink-500 px-10 py-2 rounded-full text-white shadow-lg hover:bg-pink-700 transition-all duration-500 shadow">
+                    Poster une article
+                </a>
             </div>
+
         </div>
     </section>
 
@@ -56,7 +53,7 @@
                                 {% set fullname = app.user.firstname ~ ' ' ~ app.user.lastname %}
                                 {% if fullname == article.author %}
                                     <div class="relative rounded-xl">
-                                        <div class="absolute top-0 -mt-9 right-0 flex space-x-2 p-3">
+                                        {#<div class="absolute top-0 -mt-9 right-0 flex space-x-2 p-3">
                                             <a href="{{ path('article_edit', {'id':article.id} ) }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                             </a>
@@ -68,7 +65,7 @@
                                                 </form>
                                             </a>
 
-                                        </div>
+                                        </div>#}
                                     </div>
                                 {% endif %}
 
