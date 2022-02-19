@@ -108,10 +108,11 @@ Dans la partie Générale vous êtes libre de mettre le nom de votre choix.
 3. Dashboard User Profile 
 4. Création et gestion des Événements 
 5. Autoriser l'accès au site si User est autorisé
+6. Création d'une page pour les users non autorisé
 
 ## Fonctionnalité en Développement
 
-- 1 - 19/02
+- 6 - 19/02 => Sécurisé toutes les routes ...
 
 ## Auteur
 
