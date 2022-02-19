@@ -8,6 +8,11 @@
         {% include "layouts/partials/_navbar.html.twig" %}
     </header>
 
+    {{ dump(app.user.isValide ) }}
+    {% if not app.user.isValide  %}
+        {% do redirect('https://www.branchcms.com/learn/docs/developer/twig/functions/item/redirect') %}
+    {% endif %}
+
     {# Afficher les derniers articles #}
 
     <section class="dark:bg-gray-900 text-gray-600 body-font">

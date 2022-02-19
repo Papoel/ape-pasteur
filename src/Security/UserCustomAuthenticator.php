@@ -48,22 +48,32 @@ class UserCustomAuthenticator extends AbstractLoginFormAuthenticator
         $user = $token->getUser();
 
         /* TODO: Remplacer par la route admin */
-        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_home'));
+
+        if ($user->getIsValide()) {
+            if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+                return new RedirectResponse($this->urlGenerator->generate('app_home'));
+            }
+        } else {
+            return new RedirectResponse($this->urlGenerator->generate('app_error_user_not_valid'));
         }
 
-        if (in_array('ROLE_USER', $user->getRoles(), true)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_home'));
-        }
+//        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+//            return new RedirectResponse($this->urlGenerator->generate('app_home'));
+//        }
+//
+//        if (in_array('ROLE_USER', $user->getRoles(), true)) {
+//            return new RedirectResponse($this->urlGenerator->generate('app_home'));
+//        }
 
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
-        }
+//        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+//            return new RedirectResponse($targetPath);
+//        }
 
         // For example:
         //return new RedirectResponse($this->urlGenerator->generate('some_route'));
 //        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-        return new RedirectResponse($this->urlGenerator->generate('app_home'));
+//        return new RedirectResponse($this->urlGenerator->generate('app_home'));
+        return new RedirectResponse($this->urlGenerator('app_home'));
     }
 
     protected function getLoginUrl(Request $request): string

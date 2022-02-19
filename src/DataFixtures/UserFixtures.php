@@ -63,6 +63,4 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
     {
         return ['user'];
     }
-
-
 }
