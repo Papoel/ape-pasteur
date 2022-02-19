@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Article;
 
+use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,14 @@ class ArticleController extends AbstractController
     {
         return $this->render('article/index.html.twig', [
             'articles' => $articleRepository->findBy([], ['createdAt' => 'DESC']),
+        ]);
+    }
+
+    #[Route('/{id}', name: 'article_show', methods: ['GET'])]
+    public function show(Article $article): Response
+    {
+        return $this->render('article/show.html.twig', [
+            'article' => $article,
         ]);
     }
 }
