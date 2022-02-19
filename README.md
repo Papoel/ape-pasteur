@@ -103,17 +103,25 @@ Dans la partie Générale vous êtes libre de mettre le nom de votre choix.
 
 ## Fonctionnalités à déveloper
 
-1. Light / Dark mode 
-2. Panel administration 
-3. Dashboard User Profile 
-4. Création et gestion des Événements 
-5. Autoriser l'accès au site si User est autorisé
-6. Création d'une page pour les users non autorisé
+1~~Création d'une page pour les users non autorisée~~
+2. Articles
+      1. Afficher tous les articles
+      2. Bouton Modifier visible pour l'Auteur d'un article
+      3. Lire un article
+      4. Installer CKEditor
+      5. Formulaire de modification d'Article
+      6. Formulaire de suppression d'article (demande par admin ou non ?)
+3. Light / Dark mode 
+4. Panel administration 
+5. Dashboard User Profile 
+6. Création et gestion des Événements 
+7. Autoriser l'accès au site si User est autorisé
+8. Afficher la liste des articles
 
 ## Fonctionnalité en Développement
 
-- 6 - 19/02 => Sécurisé toutes les routes ...
-
+- 1 - 19/02 => Recherche : Sécurisé toutes les routes en fonction de $user->getIsValide() et non le ROLE ?
+- 2 - 19/02
 ## Auteur
 
 - [@Papoel](https://www.github.com/Papoel)
