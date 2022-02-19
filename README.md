@@ -105,12 +105,12 @@ Dans la partie Générale vous êtes libre de mettre le nom de votre choix.
 
 1~~Création d'une page pour les users non autorisée~~
 2. Articles
-      1. Afficher tous les articles
-      2. Bouton Modifier visible pour l'Auteur d'un article
-      3. Lire un article
+      ~~1. Afficher tous les articles~~
+      ~~2. Bouton Modifier visible pour l'Auteur d'un article~~
+      ~~3. Lire un article~~
       4. Installer CKEditor
-      5. Formulaire de modification d'Article
-      6. Formulaire de suppression d'article (demande par admin ou non ?)
+      ~~5. Formulaire de modification d'Article~~
+      ~~6. Formulaire de suppression d'article (demande par admin ou non ?)~~
 3. Light / Dark mode 
 4. Panel administration 
 5. Dashboard User Profile 
