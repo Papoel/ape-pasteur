@@ -84,4 +84,19 @@ class ArticleController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}', name: 'article_delete', methods: ['POST'])]
+    public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('article_deletion_'.$article->getId(), $request->request->get('csrf_token'))) {
+            $entityManager->remove($article);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'danger',
+                sprintf('Article %s effacé !', $article->getTitle())
+            );
+        }
+
+        return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+    }
 }
