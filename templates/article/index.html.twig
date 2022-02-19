@@ -64,7 +64,11 @@
                                     {% endif %}
 
                                     <div class="flex justify-between mt-2">
-                                        <h2 class="dark:text-white tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{{ article.author.fullName }}</h2>
+                                        {% if article.author.fullName == " " %}
+                                           <h2 class="dark:text-white tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{{ article.author.pseudo }}</h2>
+                                        {% else %}
+                                            <h2 class="dark:text-white tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{{ article.author.fullName }}</h2>
+                                        {% endif %}
                                         <small class="dark:text-white tracking-widest text-xs title-font  text-gray-400 mb-1">{{ article.updatedAt|date('d/m/Y H:i', "Europe/Paris") }}</small>
                                     </div>
                                     <br>
