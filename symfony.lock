@@ -571,6 +571,9 @@
             "config/packages/reset_password.yaml"
         ]
     },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.8.0"
+    },
     "twig/extra-bundle": {
         "version": "v3.3.8"
     },
