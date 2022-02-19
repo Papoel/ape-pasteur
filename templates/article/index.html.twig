@@ -53,25 +53,19 @@
                                     {% set fullname = app.user.firstname ~ ' ' ~ app.user.lastname %}
                                     {% if fullname == article.author %}
                                         <div class="relative rounded-xl">
-                                            {#<div class="absolute top-0 -mt-9 right-0 flex space-x-2 p-3">
+                                            <div class="absolute top-0 -mt-9 right-0 flex space-x-2 p-3">
                                                 <a href="{{ path('article_edit', {'id':article.id} ) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                                 </a>
                                                 <br>
-                                                <a href="#" onclick="event.preventDefault(); confirm('Êtes-vous sûr de vouloir supprimer cet article ?') && document.getElementById('js-event-deletion-form').submit();">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                    <form id="js-event-deletion-form" style="display: none;" action="{{ path('article_delete', {'id': article.id}) }}" method="POST">
-                                                        <input type="hidden" name="csrf_token" value="{{ csrf_token('article_deletion_' ~ article.id) }}">
-                                                    </form>
-                                                </a>
 
-                                            </div>#}
+                                            </div>
                                         </div>
                                     {% endif %}
 
                                     <div class="flex justify-between mt-2">
                                         <h2 class="dark:text-white tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{{ article.author.fullName }}</h2>
-                                        <small class="dark:text-white tracking-widest text-xs title-font  text-gray-400 mb-1">{{ article.createdAt|date('d/m/Y') }}</small>
+                                        <small class="dark:text-white tracking-widest text-xs title-font  text-gray-400 mb-1">{{ article.updatedAt|date('d/m/Y H:i', "Europe/Paris") }}</small>
                                     </div>
                                     <br>
                                     <h1 class="dark:text-white title-font text-lg font-medium mb-3 text-center text-purple-600 transition-all duration-150">

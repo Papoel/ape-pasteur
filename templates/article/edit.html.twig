@@ -1,0 +1,38 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}APER - Modifier Article {{ article.id }}{% endblock %}
+
+{% block body %}
+    <header>
+        {{ include('layouts/partials/_navbar.html.twig') }}
+    </header>
+
+    <section class="dark:bg-gray-900 text-gray-600">
+        <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-md w-full space-y-8">
+                <h1 class="title_h1 text-2xl font-semibold uppercase">Modification de l'article {{ article.id}}</h1>
+                {{ include('article/_form.html.twig', { submitButtonText: 'Mettre à jour' }) }}
+            </div>
+        </div>
+
+        {# Action Retour ou Effacer #}
+        <div class="flex justify-around items-center mb-10 p-10">
+            <div class="flex justify-between">
+                <a href="{{ path('article_index') }}" class="btn-primary mr-2">
+                    Retour aux articles
+                </a>
+
+                {# <a class="ml-4 inline-flex items-center h-10 px-5 text-red-100 transition-colors duration-250 bg-red-700 rounded-lg focus:shadow-outline hover:bg-red-800">#}
+               {# <a class="btn -delete">
+                    {{ include('article/_delete_form.html.twig') }}
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                         viewBox="0 2 20 20"
+                         class="w- h-4 ml-2 fill-current"
+                         style=" fill:#FFF;"><path d="M 10 2 L 9 3 L 4 3 L 4 5 L 5 5 L 5 20 C 5 20.522222 5.1913289 21.05461 5.5683594 21.431641 C 5.9453899 21.808671 6.4777778 22 7 22 L 17 22 C 17.522222 22 18.05461 21.808671 18.431641 21.431641 C 18.808671 21.05461 19 20.522222 19 20 L 19 5 L 20 5 L 20 3 L 15 3 L 14 2 L 10 2 z M 7 5 L 17 5 L 17 20 L 7 20 L 7 5 z M 9 7 L 9 18 L 11 18 L 11 7 L 9 7 z M 13 7 L 13 18 L 15 18 L 15 7 L 13 7 z"></path>
+                    </svg>
+                </a>#}
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
