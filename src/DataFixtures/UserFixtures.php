@@ -4,11 +4,12 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements FixtureGroupInterface
 {
     public function __construct(private UserPasswordHasherInterface $passwordHasher)
     {
@@ -24,8 +25,8 @@ class UserFixtures extends Fixture
         $user->setRoles(['ROLE_ADMIN']);
         $hash = $this->passwordHasher->hashPassword($user, ('password'));
         $user->setPassword($hash);
-        $user->setFirstname('pascal');
-        $user->setLastname('briffard');
+        $user->setFirstname('Pascal');
+        $user->setLastname('Briffard');
         $user->setAddress('15 rue de la Liberté');
         $user->setPostalCode('59600');
         $user->setTown('Maubeuge');
@@ -57,4 +58,11 @@ class UserFixtures extends Fixture
 
         $manager->flush();
     }
+
+    public static function getGroups(): array
+    {
+        return ['user'];
+    }
+
+
 }
