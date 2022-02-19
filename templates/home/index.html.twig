@@ -8,9 +8,12 @@
         {% include "layouts/partials/_navbar.html.twig" %}
     </header>
 
-    {{ dump(app.user.isValide ) }}
     {% if not app.user.isValide  %}
-        {% do redirect('https://www.branchcms.com/learn/docs/developer/twig/functions/item/redirect') %}
+        <div class="h-screen bg-red-500 text-gray-200 font-extrabold">
+            <p class="pt-60 ml-96">
+                UTILISATEUR NON VALIDE
+            </p>
+        </div>
     {% endif %}
 
     {# Afficher les derniers articles #}
