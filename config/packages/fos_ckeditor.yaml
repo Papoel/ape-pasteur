@@ -7,4 +7,43 @@ twig:
 fos_ck_editor:
   configs:
     my_config:
-      toolbar: full
+      toolbar: [
+        {
+          name: 'document',
+          items: [ 'Source', '-', 'NewPage', 'Preview', '-', 'Templates' ]
+        },
+        {
+          name: 'clipboard',
+          items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]
+        },
+        '/',
+        {
+          name: 'basicstyles',
+          items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ]
+        },
+        {
+          name: 'links',
+          items: [ 'Link', 'Unlink' ]
+        },
+        {
+          name: 'paragraph',
+          items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ]
+        },
+        {
+          name: 'insert',
+          items: [ 'Image', 'Table' ]
+        },
+        {
+          name: 'colors',
+          items: [ 'TextColor', 'BGColor', 'CopyFormatting' ]
+        },
+        {
+          name: 'align',
+          items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ]
+        },
+        {
+          name: 'various',
+          items: [ 'ExportPdf', '-', 'Undo', 'Redo' ]
+        },
+
+      ]
