@@ -17,6 +17,8 @@ class ArticleController extends AbstractController
     #[Route('/', name: 'article_index', methods: ['GET'])]
     public function index(ArticleRepository $articleRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         return $this->render('article/index.html.twig', [
             'articles' => $articleRepository->findBy([], ['createdAt' => 'DESC']),
         ]);
@@ -25,6 +27,7 @@ class ArticleController extends AbstractController
     #[Route('/new', name: 'article_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $article = new Article();
 
         $article->setAuthor($this->getUser());
@@ -55,6 +58,8 @@ class ArticleController extends AbstractController
     #[Route('/{id}', name: 'article_show', methods: ['GET'])]
     public function show(Article $article): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         return $this->render('article/show.html.twig', [
             'article' => $article,
         ]);
@@ -63,6 +68,7 @@ class ArticleController extends AbstractController
     #[Route('/{id}/edit', name: 'article_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
 
@@ -87,6 +93,8 @@ class ArticleController extends AbstractController
     #[Route('/{id}', name: 'article_delete', methods: ['POST'])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         if ($this->isCsrfTokenValid('article_deletion_'.$article->getId(), $request->request->get('csrf_token'))) {
             $entityManager->remove($article);
             $entityManager->flush();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Error;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +12,7 @@ class ErrorController extends AbstractController
     public function index(): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
+
         return $this->render('error/user-is_not_valide.html.twig');
     }
 }
