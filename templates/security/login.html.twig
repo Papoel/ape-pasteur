@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
     <section>
@@ -20,8 +20,9 @@
                 {% endif %}
                 {% if app.user %}
                     <div class="mb-3">
-                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        Vous êtes connecté en tant que <strong>{{ app.user.userIdentifier }}</strong>
                     </div>
+                    <a class="mx-50 text-indigo-700  hover:underline" href="{{ path('app_logout') }}">Se déconnecter</a>
                 {% endif %}
 
                 <div class="rounded-md shadow-sm -space-y-px">
