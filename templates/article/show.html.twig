@@ -51,20 +51,20 @@
             {% if article.file == 'placeholder.webp' %}
                 <div class="md:shrink-0 container w-full max-w-6xl mx-auto bg-cover mt-8 rounded" style="background-image:url('{{ asset('images/placeholder.webp') }}'); height: 75vh;"></div>
             {% else %}
-                <div class="md:shrink-0 container w-full max-w-6xl mx-auto bg-cover mt-8 rounded" style="background-image:url('{{ asset('uploads/article_image/' ~ article.file) }}'); height: 75vh;"></div>
+                <div class="md:shrink-0 container w-full max-w-6xl mx-auto bg-cover mt-8 rounded" style="background-image:url('{{ asset('images/upload/' ~ article.file) }}'); height: 75vh;"></div>
             {% endif %}
             {# /image de l'article #}
 
             {# Article #}
-            <div class="container max-w-5xl mx-auto -mt-56  dark:bg-gray-900 bg-white rounded-t z-50 shadow-xl mb-24">
+            <div class="container max-w-5xl mx-auto -mt-56  dark:bg-gray-900 bg-transparent rounded-t z-50 shadow-xl mb-24">
                 <div class="mx-0 sm:mx-6">
                     <div class="w-full p-8 md:p-24 text-xl lg:text-2xl text-gray-800 leading-normal rounded" style="font-family:Georgia,serif;">
                         {# <Contenu de l'article> #}
                         {# <Paragraphe de description> #}
-                        <section class="bg-purple-800 p-10 mx-1 rounded mb-10">
-                            <blockquote class="relative text-white text-center w-full m-1 sm:p-2 sm:text-sm md:text-3xl md:p-10">
-                                {{ article.description|raw }}
-                            </blockquote>
+                        <section class="p-10 mx-1 rounded mb-10">
+                            <div class="relative bg-purple-600 text-white text-center w-full m-1 sm:p-2 sm:text-sm md:text-3xl md:p-10">
+                                {{ article.description | raw }}
+                            </div>
                         </section>
                         {# </Paragraphe de description> #}
 

@@ -34,7 +34,7 @@
                             {% if article.file == 'placeholder.webp' %}
                                 <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ asset('images/placeholder.webp') }}"  alt="{{ "image par défaut" }}">
                             {% else %}
-                                <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ asset('uploads/article_image/' ~ article.file) }}"  alt="{{ "image de l\'article " ~ article.id }}">
+                                <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ asset('images/upload/' ~ article.file) }}"  alt="{{ "image de l\'article " ~ article.id }}">
                             {% endif %}
 
                             <div class="p-6">
