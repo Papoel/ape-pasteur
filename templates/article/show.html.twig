@@ -7,20 +7,205 @@
         {% include "layouts/partials/_navbar.html.twig" %}
     </header>
 
-    <div class="dark:bg-gray-900 text-gray-600">
-        {# Articles #}
+    <div id="hero-header" class="relative bg-white overflow-hidden dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative z-10 mt-4 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 dark:bg-gray-900">
+                <svg class="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white dark:text-gray-900 transform translate-x-1/2"
+                     fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <polygon points="50,0 100,0 50,100 0,100"></polygon>
+                </svg>
+                <div>
+                    <div class="relative pt-6 px-4 ssm:px-6 lg:px-8"></div>
+                </div>
+
+                <section id="hero-left" class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                    <div class="sm:text-center lg:text-left">
+                        {# <Titre et description de l'article> #}
+                        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                            <span class="block text-indigo-600 xl:inline">{{ article.title }}</span>
+                        </h1>
+                        <p class="mt-3 text-base text-gray-500 dark:text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                            {{ article.description|striptags }}
+                        </p>
+                        {# </Titre et description de l'article> #}
+
+                        <div class="mt-4 pt-4 flex items-center sm:justify-center lg:justify-start">
+                            {# <Photo de profil de l'auteur> #}
+                            <img class="h-16 w-16 rounded-full" data-src="https://robohash.org/3f5381e8d83a4919daddc95439f68cf4?set=set4&bgset=&size=400x400"
+                                 alt="Avatar de l'auteur"
+                                 x-intersect.once.ratio-0="$el.src = $el.dataset.src"
+                                 src="https://robohash.org/3f5381e8d83a4919daddc95439f68cf4?set=set4&bgset=&size=400x400"
+                            >
+                            {# </Photo de profil de l'auteur> #}
+
+                            {# <Auteur et date de création ou update article> #}
+                            <div class="ml-3 flex flex-col">
+                                <span class="text-sm font-semibold dark:text-white">
+                                  Ecrit par {{ article.author.fullName }}
+                                </span>
+                                <span class="text-sm text-gray-500 dark:text-gray-400">
+                                    {% if article.createdAt is same as article.updatedAt %}
+                                        le {{ article.createdAt|date('d/m/Y', 'Europe/Paris') }}
+                                    {% endif %}
+                                        le {{ article.updatedAt|date('d/m/Y') }} à {{ article.updatedAt|date('H', 'Europe/Paris') }}h{{ article.updatedAt|date('i', 'Europe/Paris') }}
+                                </span>
+                            </div>
+                            {# </Auteur et date de création ou update article> #}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        {# <Image principale de l'article> #}
+        <div id="hero-right" class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+            <picture>
+                {% if article.file == 'placeholder.webp' %}
+                    <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+                         src="{{ asset('images/placeholder.webp') }}"
+                         alt="Image de l'article n°{{ article.id }}">
+                {% else %}
+                    <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+                         src="{{ asset('images/upload/' ~ article.file) }}" alt="Image de l'article n°{{ article.id }}"
+                    >
+                {% endif %}
+            </picture>
+        </div>
+        {# <Image principale de l'article> #}
+
+    </div>
+
+    <div class="flex flex-col md:flex-row dark:bg-gray-800 bg-gray-100">
+        {# <Asside partie gauche de l'article> #}
+        <aside class="px-4  lg:w-1/4 hidden h-screen sticky top-0 xl:flex items-center justify-center flex-col"></aside>
+        {# </Asside partie gauche de l'article> #}
+
+        {# <Contenu de l'article> #}
+        <div
+            x-intersect.once.ratio-0="Array.from($el.getElementsByClassName('md:float-right')).forEach((aside) => {
+            aside.classList.remove('md:-mr-56'), aside.classList.add('md:-mr-24') });
+            Array.from($el.getElementsByClassName('md:float-left')).forEach((aside) => { aside.classList.remove('md:-ml-56'),
+            aside.classList.add('md:-ml-24') })" id="article"
+             class="mt-2 container py-8 max-w-none prose lg:prose-xl dark:prose-invert prose-p:text-justify dark:text-gray-400 sm:w-3/5xl:w-2/4">
+            {{ article.content|raw }}
+        </div>
+        {# </Contenu de l'article> #}
+
+        {# <Affichage du pourcentage d'avancement de lecture> #}
+        <div class="fixed md:hidden inset-x-0 bottom-0 z-50">
+            <div class="h-1 bg-indigo-500" :style="`width: ${percent}%`" style="width: 37%"></div>
+        </div>
+        {# </Affichage du pourcentage d'avancement de lecture> #}
+
+        <aside class="px-14 hidden h-screen sticky top-0 md:flex items-center justify-center flex-col dark:text-white">
+            <p class="mb-1">Partage</p>
+            {# <Facebook> #}
+            <a href="#"
+               rel="noopener" target="_blank"
+               class="rounded-t-lg relative inline-flex items-center p-3 text-sm font-medium border bg-white border-gray-300
+              text-gray-500 hover:bg-gray-50 dark:bg-gray-900 dark:hover:text-purple-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24"
+                     height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3"></path>
+                </svg>
+            </a>
+            {# <Facebook> #}
+
+            {# <Twitter> #}
+            <a href="#"
+               rel="noopener" target="_blank"
+               class=" -mt-px relative inline-flex items-center p-3 text-sm font-medium border bg-white border-gray-300 text-gray-500
+              hover:bg-gray-50 dark:bg-gray-900 dark:hover:text-purple-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24"
+                     height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135
+                -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522
+                -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z"></path>
+                </svg>
+            </a>
+            {# </Twitter> #}
+
+            {# <Linkedin> #}
+            <a href="#"
+               rel="noopener" target="_blank"
+               class="rounded-b-lg -mt-px relative inline-flex items-center p-3 text-sm font-medium border bg-white border-gray-300
+              text-gray-500 hover:bg-gray-50 dark:bg-gray-900 dark:hover:text-purple-400">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="icon icon-tabler icon-tabler-brand-linkedin"
+                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                     stroke="currentColor" fill="none"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                    <line x1="8" y1="11" x2="8" y2="16"></line>
+                    <line x1="8" y1="8" x2="8" y2="8.01"></line>
+                    <line x1="12" y1="16" x2="12" y2="11"></line>
+                    <path d="M16 16v-3a2 2 0 0 0 -4 0"></path>
+                </svg>
+            </a>
+            {# </Linkedin> #}
+
+            {# Todo: Cercle de progression de lecture #}
+            {#<div class="inline-flex items-center justify-center overflow-hidden rounded-full bottom-5 left-5">
+                <!-- Building a Progress Ring: https://css-tricks.com/building-progress-ring-quickly/ -->
+                <svg class="w-20 h-20">
+                    <circle class="text-gray-300"
+                            stroke-width="2" stroke="currentColor" fill="transparent"
+                            r="30" cx="40" cy="40">
+                    </circle>
+                    <circle class="text-indigo-600" stroke-width="5"
+                            :stroke-dasharray="circumference"
+                            :stroke-dashoffset="circumference - percent / 100 * circumference"
+                            stroke-linecap="round"
+                            stroke="currentColor" fill="transparent" r="30" cx="40" cy="40"
+                            stroke-dasharray="188.49555921538757"
+                            stroke-dashoffset="156.4513141487717">
+                    </circle>
+                </svg>
+                <span class="absolute text-xl text-indigo-700 dark:text-indigo-400" x-text="`${percent}%`">37%</span>
+            </div>#}
+        </aside>
+
+        <aside class="px-4  sm:w-2/5 lg:w-1/4 hidden h-screen sticky top-0 md:flex items-center justify-center flex-col"></aside>
+    </div>
+
+    {# <Carte de visite de l'auteur> #}
+     <div class="mb-10 mt-10 max-w-sm md:max-w-3xl lg:max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden drop-shadow-[0_35px_35px_rgba(155,0,0,0.25)]">
+        <div class="md:flex md:h-full">
+            <div class="md:flex-shrink-0">
+                <img class="w-full object-cover md:h-full md:w-48" src="https://gravatar.com/avatar/016428f7193e0dc1563ff9876dc0ebe0?s=400&d=robohash&r=r" alt="Photo of author Nicolas Sursock">
+            </div>
+            <div class="p-8 dark:bg-gray-800">
+                <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
+                    Article rédigé par {{ article.author }}
+                </div>
+                <p class="mt-2 text-gray-500 dark:text-gray-400">
+                    {{ article.author }} est inscrit sur le site de l'association des parents d'élèves
+                    depuis {{ app.user.createdAt|date('Y') }}.
+                </p>
+            </div>
+        </div>
+    </div>
+    {# <Carte de visite de l'auteur> #}
+
+    {# <div class="dark:bg-gray-900 text-gray-600">
+         Articles
         <section id="article" class="body-font font-sans leading-normal tracking-normal">
-            {# navigation #}
+             navigation
             <div id="header" class="dark:bg-gray-300 text-gray-900 bg-white fixed w-full z-10 top-0 hidden animated" style="opacity: 0.99;">
                 <div class="dark:bg-gray-900 text-gray-600">
                     <div class="flex flex-wrap items-center content-center">
-                        {# Titre de l'article dans la barre de progression de lecture #}
+                         Titre de l'article dans la barre de progression de lecture
                         <div class="flex w-1/2 justify-start text-gray-600">
                             <a class="flex no-underline hover:text-purple-400 hover:no-underline pl-2" href="#">
                                 <span class="hidden w-0 md:w-auto md:block pl-1">{{ article.title }}</span>
                             </a>
                         </div>
-                        {# Partager l'article vers les réseaux sociaux #}
+                         Partager l'article vers les réseaux sociaux
                         <div class="flex w-1/2 justify-end content-center h-24">
                             <p class="hidden sm:block mr-3 text-center my-6 p-4 text-xs"><span class="pr-2">Partager</span> 👉</p>
                             <a href="https://twitter.com/intent/tweet?url=#" target="_blank"
@@ -35,67 +220,68 @@
                         </div>
                     </div>
                 </div>
-                {# Barre de Progression de lecture #}
+                 Barre de Progression de lecture
                 <div id="progress" class="h-1 shadow-xl" style="background:linear-gradient(to right, #DC134C var(--scroll), transparent 0);"></div>
             </div>
-            {# /navigation #}
+             /navigation
 
-            {# Titre de l'article #}
+             Titre de l'article
             <div class="text-center pt-16 md:pt-32">
                 <p class="text-sm md:text-base text-purple-500 font-bold">{{ article.createdAt|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") |capitalize }}<span class="mx-1 text-gray-400">&middot;</span>{{ article.author }}</p>
                 <h1 class="font-bold break-normal text-3xl md:text-5xl">{{ article.title }}</h1>
             </div>
-            {# /Titre de l'article #}
+             /Titre de l'article
 
-            {# image de l'article #}
+             image de l'article
             {% if article.file == 'placeholder.webp' %}
+                <div class="md:shrink-0 container w-full max-w-6xl mx-auto bg-cover mt-8 rounded" style="background-image:url('{{ asset('images/placeholder.webp') }}'); height: 75vh;"></div>
                 <div class="md:shrink-0 container w-full max-w-6xl mx-auto bg-cover mt-8 rounded" style="background-image:url('{{ asset('images/placeholder.webp') }}'); height: 75vh;"></div>
             {% else %}
                 <div class="md:shrink-0 container w-full max-w-6xl mx-auto bg-cover mt-8 rounded" style="background-image:url('{{ asset('images/upload/' ~ article.file) }}'); height: 75vh;"></div>
             {% endif %}
-            {# /image de l'article #}
+             /image de l'article
 
-            {# Article #}
+             Article
             <div class="container max-w-5xl mx-auto -mt-56  dark:bg-gray-900 bg-transparent rounded-t z-50 shadow-xl mb-24">
                 <div class="mx-0 sm:mx-6">
                     <div class="w-full p-8 md:p-24 text-xl lg:text-2xl text-gray-800 leading-normal rounded" style="font-family:Georgia,serif;">
-                        {# <Contenu de l'article> #}
-                        {# <Paragraphe de description> #}
+                         <Contenu de l'article>
+                         <Paragraphe de description>
                         <section class="p-10 mx-1 rounded mb-10">
                             <div class="relative bg-purple-600 text-white text-center w-full m-1 sm:p-2 sm:text-sm md:text-3xl md:p-10">
                                 {{ article.description | raw }}
                             </div>
                         </section>
-                        {# </Paragraphe de description> #}
+                         </Paragraphe de description>
 
-                        {# <Contenu de l'article> #}
+                         <Contenu de l'article>
                         <p class="py-6 dark:text-gray-400">{{ article.content|raw }}</p>
-                        {# </Contenu de l'article> #}
+                         </Contenu de l'article>
                     </div>
                 </div>
             </div>
-            {# /Article #}
+             /Article
 
-            {# Retour aux articles #}
+             Retour aux articles
             <div class="flex justify-center mb-36">
                 <a href="{{ path('article_index') }}" class="px-24 bg-transparent hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-400 hover:border-transparent rounded">
                     Retour
                 </a>
             </div>
-            {# /Retour aux articles #}
+             /Retour aux articles
         </section>
-        {# Articles #}
+         Articles
 
-        {# Auteur #}
+         Auteur
         <section id="author" class="">
-            {# Composant Commentaire Card #}
+             Composant Commentaire Card
             <div class="flex justify-center relative top-1/3">
-                {# Début #}
-                {# TODO : Afficher la corbeille si on est l'auteur du message + creer action de suppesion de commentaire #}
+                 Début
+                 TODO : Afficher la corbeille si on est l'auteur du message + creer action de suppesion de commentaire
                 <div class="relative grid grid-cols-1 gap-4 p-4 mb-16 border rounded-lg bg-purple-50 shadow-lg">
                     <div class="relative flex gap-4">
                          <img src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png" class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20" alt="" loading="lazy">
-                        {#<img src="{{ asset('uploads/avatar/' ~ article.author.avatar) }}" class="relative rounded-lg -top-8 -mb-4 border h-20 w-20" alt="avatar-auteur-commentaire" loading="lazy">#}
+                        <img src="{{ asset('uploads/avatar/' ~ article.author.avatar) }}" class="relative rounded-lg -top-8 -mb-4 border h-20 w-20" alt="avatar-auteur-commentaire" loading="lazy">
                         <div class="flex flex-col w-full">
                             <div class="flex flex-row justify-between">
                                 {% if  article.author.pseudo %}
@@ -114,8 +300,8 @@
                 </div>
             </div>
         </section>
-        {# /Auteur #}
-    </div>
+         /Auteur
+    </div>  #}
 
     <script src="{{ asset('javascript/scrollLineArticleReading.js') }}"></script>
 
