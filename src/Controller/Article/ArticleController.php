@@ -10,101 +10,143 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/article')]
 class ArticleController extends AbstractController
 {
+    public function __construct(private Security $security)
+    {
+    }
+
     #[Route('/', name: 'article_index', methods: ['GET'])]
     public function index(ArticleRepository $articleRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
+        $user = $this->security->getUser();
 
-        return $this->render('article/index.html.twig', [
-            'articles' => $articleRepository->findBy([], ['createdAt' => 'DESC']),
-        ]);
+        if (false === $user->getIsValide()) {
+            $this->redirectToRoute('app_error_user_not_valid');
+        } else {
+            return $this->render('article/index.html.twig', [
+                'articles' => $articleRepository->findBy([], ['createdAt' => 'DESC']),
+            ]);
+        }
+
+        return $this->redirectToRoute('app_error_user_not_valid');
     }
 
     #[Route('/new', name: 'article_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        $article = new Article();
+        $user = $this->security->getUser();
 
-        $article->setAuthor($this->getUser());
+        if (false === $user->getIsValide()) {
+            $this->redirectToRoute('app_error_user_not_valid');
+        } else {
+            $article = new Article();
 
-        $form = $this->createForm(ArticleFormType::class, $article);
-        $form->handleRequest($request);
+            $article->setAuthor($this->getUser());
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (null === $form['file']->getData()) {
-                $article->setFile('placeholder.webp');
-                $article->setIsPublished(false);
+            $form = $this->createForm(ArticleFormType::class, $article);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                if (null === $form['file']->getData()) {
+                    $article->setFile('placeholder.webp');
+                    $article->setIsPublished(false);
+                }
+
+                $entityManager->persist($article);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Votre article est enregistré, il est actuellement en attente de publication.');
+
+                return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
             }
 
-            $entityManager->persist($article);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Votre article est enregistré, il est actuellement en attente de publication.');
-
-            return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+            return $this->renderForm('article/new.html.twig', [
+                'article' => $article,
+                'articleForm' => $form,
+            ]);
         }
 
-        return $this->renderForm('article/new.html.twig', [
-            'article' => $article,
-            'articleForm' => $form,
-        ]);
+        return $this->redirectToRoute('app_error_user_not_valid');
     }
 
     #[Route('/{id}', name: 'article_show', methods: ['GET'])]
     public function show(Article $article): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
+        $user = $this->security->getUser();
 
-        return $this->render('article/show.html.twig', [
-            'article' => $article,
-        ]);
+        if (false === $user->getIsValide()) {
+            $this->redirectToRoute('app_error_user_not_valid');
+        } else {
+            return $this->render('article/show.html.twig', [
+                'article' => $article,
+            ]);
+        }
+
+        return $this->redirectToRoute('app_error_user_not_valid');
     }
 
     #[Route('/{id}/edit', name: 'article_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        $form = $this->createForm(ArticleFormType::class, $article);
-        $form->handleRequest($request);
+        $user = $this->security->getUser();
 
-        /*        dump($form['file']->getData());
-                dd($form['imageFile']->getData());*/
+        if (false === $user->getIsValide()) {
+            $this->redirectToRoute('app_error_user_not_valid');
+        } else {
+            $form = $this->createForm(ArticleFormType::class, $article);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($article);
-            $entityManager->flush();
+            /*        dump($form['file']->getData());
+                    dd($form['imageFile']->getData());*/
 
-            $this->addFlash('success', 'Votre article à bien été mis à jour.');
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($article);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+                $this->addFlash('success', 'Votre article à bien été mis à jour.');
+
+                return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->renderForm('article/edit.html.twig', [
+                'article' => $article,
+                'articleForm' => $form,
+            ]);
         }
 
-        return $this->renderForm('article/edit.html.twig', [
-            'article' => $article,
-            'articleForm' => $form,
-        ]);
+        return $this->redirectToRoute('app_error_user_not_valid');
     }
 
     #[Route('/{id}', name: 'article_delete', methods: ['POST'])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
+        $user = $this->security->getUser();
 
-        if ($this->isCsrfTokenValid('article_deletion_'.$article->getId(), $request->request->get('csrf_token'))) {
-            $entityManager->remove($article);
-            $entityManager->flush();
+        if (false === $user->getIsValide()) {
+            $this->redirectToRoute('app_error_user_not_valid');
+        } else {
+            if ($this->isCsrfTokenValid('article_deletion_'.$article->getId(), $request->request->get('csrf_token'))) {
+                $entityManager->remove($article);
+                $entityManager->flush();
 
-            $this->addFlash(
-                'danger',
-                sprintf('Article %s effacé !', $article->getTitle())
-            );
+                $this->addFlash(
+                    'danger',
+                    sprintf('Article %s effacé !', $article->getTitle())
+                );
+            }
+
+            return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_error_user_not_valid');
     }
 }
