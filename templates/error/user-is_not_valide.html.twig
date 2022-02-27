@@ -2,7 +2,8 @@
 
 {% block body %}
     <div class="bg-indigo-900 relative overflow-hidden h-screen">
-        <img src="{{ asset('images/user_not_valid.webp') }}" class="absolute h-screen w-screen object-cover"/>
+        <img src="{{ asset('images/user_not_valid.webp') }}"
+             class="absolute h-screen w-screen object-cover"/>
         <div class="inset-0 bg-black opacity-25 absolute">
         </div>
         <div class="container mx-auto px-6 md:px-12 relative z-10 flex items-center py-32 xl:py-40">
@@ -10,8 +11,11 @@
                 <h1 class="font-extrabold text-5xl text-center text-white leading-tight mt-4">
                     Soyez patient, un administrateur vérifie votre compte.
                 </h1>
+                <a href="{{ path('app_logout') }}" class="bg-transparent text-white font-medium text-md hover:text-purple-200 uppercase duration-150 ease-in-out">
+                    Se Deconnecter
+                </a>
                 <p class="font-extrabold text-8xl my-44 text-white animate-bounce">
-                    404
+                    302
                 </p>
             </div>
         </div>
