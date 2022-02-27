@@ -77,7 +77,7 @@
 
     <div class="flex flex-col md:flex-row dark:bg-gray-800 bg-gray-100">
         {# <Asside partie gauche de l'article> #}
-        <aside class="px-4  lg:w-1/4 hidden h-screen sticky top-0 xl:flex items-center justify-center flex-col"></aside>
+        <aside class="px-4 lg:w-1/4 hidden h-screen sticky top-0 xl:flex items-center justify-center flex-col"></aside>
         {# </Asside partie gauche de l'article> #}
 
         {# <Contenu de l'article> #}
@@ -86,7 +86,7 @@
             aside.classList.remove('md:-mr-56'), aside.classList.add('md:-mr-24') });
             Array.from($el.getElementsByClassName('md:float-left')).forEach((aside) => { aside.classList.remove('md:-ml-56'),
             aside.classList.add('md:-ml-24') })" id="article"
-             class="mt-2 container py-8 max-w-none prose lg:prose-xl dark:prose-invert prose-p:text-justify dark:text-gray-400 sm:w-3/5xl:w-2/4">
+             class="mt-2 container px-4 py-8 max-w-none prose lg:prose-xl dark:prose-invert prose-p:text-justify dark:text-gray-400 sm:w-3/5xl:w-2/4">
             {{ article.content|raw }}
         </div>
         {# </Contenu de l'article> #}
@@ -170,27 +170,29 @@
             </div>#}
         </aside>
 
-        <aside class="px-4  sm:w-2/5 lg:w-1/4 hidden h-screen sticky top-0 md:flex items-center justify-center flex-col"></aside>
+        <aside class="px-4 sm:w-2/5 lg:w-1/4 hidden h-screen sticky top-0 md:flex items-center justify-center flex-col"></aside>
     </div>
 
-    {# <Carte de visite de l'auteur> #}
-     <div class="mb-10 mt-10 max-w-sm md:max-w-3xl lg:max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden drop-shadow-[0_35px_35px_rgba(155,0,0,0.25)]">
-        <div class="md:flex md:h-full">
-            <div class="md:flex-shrink-0">
-                <img class="w-full object-cover md:h-full md:w-48" src="https://gravatar.com/avatar/016428f7193e0dc1563ff9876dc0ebe0?s=400&d=robohash&r=r" alt="Photo of author Nicolas Sursock">
-            </div>
-            <div class="p-8 dark:bg-gray-800">
-                <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-                    Article rédigé par {{ article.author }}
+
+        {# <Carte de visite de l'auteur> #}
+         <div class="my-10 max-w-sm md:max-w-3xl lg:max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+            <div class="md:flex md:h-full">
+                <div class="md:flex-shrink-0">
+                    <img class="w-full object-cover md:h-full md:w-48" src="https://gravatar.com/avatar/016428f7193e0dc1563ff9876dc0ebe0?s=400&d=robohash&r=r" alt="Photo of author Nicolas Sursock">
                 </div>
-                <p class="mt-2 text-gray-500 dark:text-gray-400">
-                    {{ article.author }} est inscrit sur le site de l'association des parents d'élèves
-                    depuis {{ app.user.createdAt|date('Y') }}.
-                </p>
+                <div class="my-auto dark:bg-gray-800">
+                    <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
+                        Article rédigé par {{ article.author }}
+                    </div>
+                    <p class="mt-2 text-gray-500 dark:text-gray-400">
+                        {{ article.author }} est inscrit sur le site de l'association des parents d'élèves
+                        depuis {{ app.user.createdAt|date('Y') }}.
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-    {# <Carte de visite de l'auteur> #}
+        {# <Carte de visite de l'auteur> #}
+
 
     {# <div class="dark:bg-gray-900 text-gray-600">
          Articles

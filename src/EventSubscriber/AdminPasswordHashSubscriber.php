@@ -16,7 +16,6 @@ class AdminPasswordHashSubscriber implements EventSubscriberInterface
     {
     }
 
-
     public static function getSubscribedEvents()
     {
         return [
