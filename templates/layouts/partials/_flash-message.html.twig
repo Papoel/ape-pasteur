@@ -1,0 +1,35 @@
+{#
+<div class="p-10 flex flex-col gap-5 items-center">
+
+    <div class="flex bg-white flex-row shadow-md border border-gray-100 rounded-lg overflow-hidden md:w-5/12">
+        <div class="flex w-3 bg-gradient-to-t from-green-500 to-green-400"></div>
+        <div class="flex-1 p-3">
+            <h1 class="md:text-xl text-gray-600">Success</h1>
+            <p class="text-gray-400 text-xs md:text-sm font-light">Votre compte est vérifié.</p>
+        </div>
+        <div class="cursor-pointer border-l hover:bg-gray-50 border-gray-100 px-4 flex place-items-center">
+            <p class="text-gray-400 text-xs">FERMER</p>
+        </div>
+    </div>
+
+</div>
+#}
+
+<div class="p-10 flex flex-col gap-5 items-center">
+    <div class="flex bg-white dark:bg-gray-800 flex-row shadow-md border border-gray-100 rounded-lg overflow-hidden md:w-5/12">
+        {% if app.session.flashbag.peekAll|length > 0 %}
+            {% for type, messages in app.session.flashbag.all %}
+                <div id="{{ type }}"></div>
+                    {% for message in messages %}
+                        {# <div class="{{ type ? type : '' }}">#}
+                        <div class="flex-1 p-3">
+                            <p id="flash-message-{{ type }}">
+                                {{ message|trans({}, domain|default('messages')) }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
