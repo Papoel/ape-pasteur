@@ -93,4 +93,8 @@
     @apply dark:text-red-400;
   }
 
+  .form-class {
+    @apply form-control w-full bg-gray-300 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline focus:border-purple-500;
+  }
+
 }
