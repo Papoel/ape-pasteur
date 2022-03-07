@@ -51,6 +51,46 @@
   }
 
   .title_h1 {
-    @apply text-center text-6xl font-normal leading-normal mt-0 mb-2 text-purple-800 dark:text-gray-500
+    @apply text-center;
+    @apply text-6xl;
+    @apply font-normal;
+    @apply leading-normal;
+    @apply mt-0;
+    @apply mb-2;
+    @apply text-purple-800;
+    @apply dark:text-gray-500;;
   }
+
+  #success {
+    @apply flex w-3 bg-gradient-to-t from-green-500 to-green-400;
+  }
+
+  #error {
+    @apply flex;
+    @apply w-3;
+    @apply bg-gradient-to-t;
+    @apply from-red-500;
+    @apply to-red-400;
+  }
+
+  #warning {
+    @apply flex;
+    @apply w-3;
+    @apply bg-gradient-to-t;
+    @apply from-yellow-500;
+    @apply to-yellow-400;
+  }
+
+  #flash-message-success {
+    @apply dark:text-green-400;
+  }
+
+  #flash-message-warning {
+    @apply mx-auto dark:text-yellow-400;
+  }
+
+  #flash-message-error {
+    @apply dark:text-red-400;
+  }
+
 }
