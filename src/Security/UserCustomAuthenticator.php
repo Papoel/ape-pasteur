@@ -56,7 +56,7 @@ class UserCustomAuthenticator extends AbstractLoginFormAuthenticator
                 return new RedirectResponse($this->urlGenerator->generate('app_admin'));
             }
         } else {
-            return new RedirectResponse($this->urlGenerator->generate('app_error_user_not_valid'));
+            return new RedirectResponse($this->urlGenerator->generate('app_waiting_validation'));
         }
 
 //        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
