@@ -96,7 +96,7 @@ class ArticleController extends AbstractController
         return $this->redirectToRoute('app_waiting_validation');
     }
 
-    #[Route('/{id}/edit', name: 'article_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'article_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -130,7 +130,7 @@ class ArticleController extends AbstractController
         return $this->redirectToRoute('app_waiting_validation');
     }
 
-    #[Route('/{id}', name: 'article_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'article_delete', methods: ['POST'])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
