@@ -8,11 +8,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ErrorController extends AbstractController
 {
-    #[Route('/error', name: 'app_error_user_not_valid')]
+    #[Route('/attente-validation', name: 'app_waiting_validation')]
     public function index(): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        return $this->render('error/user-is_not_valide.html.twig');
+        return $this->render('error/user-waiting.html.twig');
     }
 }
