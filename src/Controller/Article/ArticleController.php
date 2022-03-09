@@ -3,6 +3,7 @@
 namespace App\Controller\Article;
 
 use App\Entity\Article;
+use App\Entity\User;
 use App\Form\ArticleFormType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,27 +24,29 @@ class ArticleController extends AbstractController
     public function index(ArticleRepository $articleRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
+        /** @var User $user */
         $user = $this->security->getUser();
 
         if (false === $user->getIsValide()) {
-            $this->redirectToRoute('app_error_user_not_valid');
+            $this->redirectToRoute('app_waiting_validation');
         } else {
             return $this->render('article/index.html.twig', [
                 'articles' => $articleRepository->findBy([], ['createdAt' => 'DESC']),
             ]);
         }
 
-        return $this->redirectToRoute('app_error_user_not_valid');
+        return $this->redirectToRoute('app_waiting_validation');
     }
 
     #[Route('/new', name: 'article_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
+        /** @var User $user */
         $user = $this->security->getUser();
 
         if (false === $user->getIsValide()) {
-            $this->redirectToRoute('app_error_user_not_valid');
+            $this->redirectToRoute('app_waiting_validation');
         } else {
             $article = new Article();
 
@@ -72,34 +75,36 @@ class ArticleController extends AbstractController
             ]);
         }
 
-        return $this->redirectToRoute('app_error_user_not_valid');
+        return $this->redirectToRoute('app_waiting_validation');
     }
 
     #[Route('/{id}', name: 'article_show', methods: ['GET'])]
     public function show(Article $article): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
+        /** @var User $user */
         $user = $this->security->getUser();
 
         if (false === $user->getIsValide()) {
-            $this->redirectToRoute('app_error_user_not_valid');
+            $this->redirectToRoute('app_waiting_validation');
         } else {
             return $this->render('article/show.html.twig', [
                 'article' => $article,
             ]);
         }
 
-        return $this->redirectToRoute('app_error_user_not_valid');
+        return $this->redirectToRoute('app_waiting_validation');
     }
 
     #[Route('/{id}/edit', name: 'article_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
+        /** @var User $user */
         $user = $this->security->getUser();
 
         if (false === $user->getIsValide()) {
-            $this->redirectToRoute('app_error_user_not_valid');
+            $this->redirectToRoute('app_waiting_validation');
         } else {
             $form = $this->createForm(ArticleFormType::class, $article);
             $form->handleRequest($request);
@@ -122,17 +127,18 @@ class ArticleController extends AbstractController
             ]);
         }
 
-        return $this->redirectToRoute('app_error_user_not_valid');
+        return $this->redirectToRoute('app_waiting_validation');
     }
 
     #[Route('/{id}', name: 'article_delete', methods: ['POST'])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
+        /** @var User $user */
         $user = $this->security->getUser();
 
         if (false === $user->getIsValide()) {
-            $this->redirectToRoute('app_error_user_not_valid');
+            $this->redirectToRoute('app_waiting_validation');
         } else {
             if ($this->isCsrfTokenValid('article_deletion_'.$article->getId(), $request->request->get('csrf_token'))) {
                 $entityManager->remove($article);
@@ -147,6 +153,6 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->redirectToRoute('app_error_user_not_valid');
+        return $this->redirectToRoute('app_waiting_validation');
     }
 }
