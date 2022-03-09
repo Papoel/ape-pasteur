@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Application;
 
 use App\Entity\Article;
 use App\Entity\User;
