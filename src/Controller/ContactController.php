@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\ContactFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,39 +11,61 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class ContactController extends AbstractController
 {
     /**
-     * @throws TransportExceptionInterface
+     * @param Security $security
      */
-    #[Route('/contact', name: 'contact')]
-    public function sender(Request $request, MailerInterface $mailer): Response
+    public function __construct(private Security $security)
+    {
+    }
+
+    /**
+     * @param Request         $request
+     * @param MailerInterface $mailer
+     *
+     * @return Response
+     */
+    #[Route('/contact', name: 'app_contact')]
+    public function test(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(ContactFormType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $contactFormData = $form->getData();
+        /** @var User $user */
+        $user = $this->getUser();
 
-            $message = (new Email())
-                ->from($contactFormData['email'])
-                ->to('adresseEmailApe@gmail.com')
-                ->subject('APER-Contact')
-                ->text(
-                    'Expéditeur : '.$contactFormData['email'].\PHP_EOL.
-                    'Message: '.$contactFormData['message'],
-                    'text/plain');
+        if (false === $user->getIsValide()) {
+            $this->redirectToRoute('app_waiting_validation');
+        } else {
+            if ($form->isSubmitted() && $form->isValid()) {
+                $contactFormData = $form->getData();
 
-            $mailer->send($message);
+                $email = (new Email())
+                    ->from($user->getEmail())
+                    ->to('aperp59@gmail.com')
+                    ->subject('Sujet a définir')
+                    ->text('Expéditeur : '.$contactFormData['email'].\PHP_EOL.
+                        'Message: '.$contactFormData['message'],
+                        'text/plain');
 
-            $this->addFlash('success', 'Votre Email a été envoyé avec succès.');
+                try {
+                    $mailer->send($email);
+                } catch (TransportExceptionInterface $e) {
+                }
 
-            return $this->redirectToRoute('app_home');
+                $this->addFlash('success', 'Votre Email a été envoyé avec succès.');
+
+                return $this->redirectToRoute('article_index');
+            }
+
+            return $this->render('contact/index.html.twig', [
+                'contactForm' => $form->createView(),
+            ]);
         }
 
-        return $this->render('contact/index.html.twig', [
-            'contactForm' => $form->createView(),
-        ]);
+        return $this->redirectToRoute('app_waiting_validation');
     }
 }
