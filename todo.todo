@@ -1,0 +1,31 @@
+# Liste de ce que je dois faire dans le blog :
+
+## Affichage
+
+1. Faire une pagination
+2. Page à propos (+ lien avec le footer)
+
+### Article Show
+
+1. Vérifier l'affichage avec un véritable article
+2. Design carte auteur ?...
+3. Certaines images ne rendent pas bien
+
+## Fonctions
+
+1. Commenter un article
+2. Liker un article (ou retirer son like)
+3. Envoyer un email lors de l'inscription
+4. Créer la page Evénements
+   1. Date
+   2. Inscription
+   3. Nombre de place ?
+   4. Proposer d'aider à organiser l'événement
+
+## Sécurité
+
+1. RGPD
+
+## CRUD Admin
+
+1. Template à retravailler avec des fonctions 
