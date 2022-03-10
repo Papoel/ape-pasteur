@@ -24,7 +24,9 @@
 
 <body class="dark:bg-gray-900">
     <main>
-        {% block body %}{% endblock %}
+        {% block body %}
+            {% block footer %}{% endblock %}
+        {% endblock %}
     </main>
 </body>
 
