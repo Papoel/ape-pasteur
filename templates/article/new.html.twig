@@ -16,4 +16,8 @@
             <a href="{{ path('article_index') }}">retour à la liste</a>
         </div>
     </div>
+
+    {% block footer %}
+        {{ include('layouts/partials/_footer.html.twig') }}
+    {% endblock %}
 {% endblock %}

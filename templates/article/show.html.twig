@@ -305,6 +305,10 @@
          /Auteur
     </div>  #}
 
+    {% block footer %}
+        {{ include('layouts/partials/_footer.html.twig') }}
+    {% endblock %}
+
     <script src="{{ asset('javascript/scrollLineArticleReading.js') }}"></script>
 
 {% endblock %}
