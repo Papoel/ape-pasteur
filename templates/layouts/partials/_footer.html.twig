@@ -1,0 +1,59 @@
+<section id="footer">
+    <footer class="bg-purple-900 dark:bg-gray-800">
+        <div class="container px-6 py-4 mx-auto">
+            <div class="lg:flex">
+                <div class="w-full -mx-6 lg:w-2/5">
+                    <div class="px-6">
+                        <div>
+                            <a href="#" class="text-xl font-bold text-gray-300 dark:text-white hover:text-gray-200 dark:hover:text-gray-200">
+                                Association des Parents d'élèves
+                            </a>
+                        </div>
+
+                        <p class="max-w-md mt-2 text-gray-500 dark:text-gray-400">
+                            Rejoignez-nous et ensemble œuvrons <br/>pour nos enfants.
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="mt-6 lg:mt-0 lg:flex-1">
+                    <div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4">
+                        <div>
+                            <h3 class="text-gray-300 uppercase dark:text-white">A Propos</h3>
+                            <a href="#" class="block mt-2 text-sm text-gray-500 dark:text-gray-400 hover:underline">Association</a>
+                            <a href="#" class="block mt-2 text-sm text-gray-500 dark:text-gray-400 hover:underline">Membres</a>
+                            <a href="#" class="block mt-2 text-sm text-gray-500 dark:text-gray-400 hover:underline">Opportunités</a>
+                        </div>
+
+                        <div>
+                            <h3 class="text-gray-300 uppercase dark:text-white">Blog</h3>
+                            <a href="{{ path('article_index') }}" class="block mt-2 text-sm text-gray-500 dark:text-gray-400 hover:underline">Nos articles</a>
+                        </div>
+
+                        <div>
+                            <h3 class="text-gray-300 uppercase dark:text-white">Evénements</h3>
+                            <a href="#" class="block mt-2 text-sm text-gray-500 dark:text-gray-400 hover:underline">Prochainement...</a>
+                        </div>
+
+                        <div>
+                            <h3 class="text-gray-300 uppercase dark:text-white">Contact</h3>
+                            <a href="tel: +33650017440" class="block mt-2 text-sm text-gray-400 dark:text-gray-400 hover:underline">+33650017440</a>
+                            <a href="mailto: aperp59@gmail.com" class="block mt-2 text-sm text-gray-400 dark:text-gray-400 hover:underline">Nous contacter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="h-px my-6 bg-gray-300 border-none dark:bg-gray-700">
+
+            <div>
+                <p class="text-center text-gray-400 dark:text-white">
+                    &copy; Papoel &middot; Tous droits reservés &middot;
+                    {{ "now"|date("Y") }}
+                </p>
+                {# Coordonées du dev #}
+            </div>
+        </div>
+    </footer>
+</section>
