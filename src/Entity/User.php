@@ -259,7 +259,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTime
+    public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
     }
@@ -303,11 +303,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeArticle(Article $article): self
     {
-        if ($this->articles->removeElement($article)) {
-            // set the owning side to null (unless already changed)
-            if ($article->getAuthor() === $this) {
-                $article->setAuthor(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->articles->removeElement($article) && $article->getAuthor() === $this) {
+            $article->setAuthor(null);
         }
 
         return $this;

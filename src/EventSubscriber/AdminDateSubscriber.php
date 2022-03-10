@@ -3,6 +3,7 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Article;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -30,6 +31,7 @@ class AdminDateSubscriber implements EventSubscriberInterface
             return;
         }
 
+        /* @var User $this */
         $entityInstance->setAuthor($this->security->getUser());
 
         $entityInstance->setCreatedAt(new \DateTimeImmutable());
